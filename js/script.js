@@ -11,7 +11,7 @@ if (menuToggle && navigation) {
             "aria-label",
             isOpen ? "Tutup menu" : "Buka menu"
         );
-        menuToggle.textContent = isOpen ? "✕" : "☰";
+        menuToggle.classList.toggle("is-open", isOpen);
     });
 
     navigation.querySelectorAll("a").forEach(function (link) {
@@ -19,8 +19,22 @@ if (menuToggle && navigation) {
             navigation.classList.remove("active");
             menuToggle.setAttribute("aria-expanded", "false");
             menuToggle.setAttribute("aria-label", "Buka menu");
-            menuToggle.textContent = "☰";
+            menuToggle.classList.remove("is-open");
         });
+    });
+}
+
+const clientCarousel = document.querySelector(".client-carousel");
+const clientCarouselToggle = document.querySelector(".client-carousel-toggle");
+
+if (clientCarousel && clientCarouselToggle) {
+    clientCarouselToggle.addEventListener("click", function () {
+        const isPaused = clientCarousel.classList.toggle("is-paused");
+
+        clientCarouselToggle.setAttribute("aria-pressed", String(isPaused));
+        clientCarouselToggle.textContent = isPaused
+            ? "Lanjutkan carousel"
+            : "Jeda carousel";
     });
 }
 

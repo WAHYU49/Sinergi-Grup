@@ -3,24 +3,48 @@ const menuToggle = document.getElementById("menuToggle");
 const navigation = document.getElementById("navigation");
 
 if (menuToggle && navigation) {
-    menuToggle.addEventListener("click", function () {
-        const isOpen = navigation.classList.toggle("active");
-
+    function setMenuOpen(isOpen) {
+        navigation.classList.toggle("active", isOpen);
         menuToggle.setAttribute("aria-expanded", String(isOpen));
         menuToggle.setAttribute(
             "aria-label",
             isOpen ? "Tutup menu" : "Buka menu"
         );
         menuToggle.classList.toggle("is-open", isOpen);
+    }
+
+    menuToggle.addEventListener("click", function () {
+        setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
     });
 
     navigation.querySelectorAll("a").forEach(function (link) {
         link.addEventListener("click", function () {
-            navigation.classList.remove("active");
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.setAttribute("aria-label", "Buka menu");
-            menuToggle.classList.remove("is-open");
+            setMenuOpen(false);
         });
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && navigation.classList.contains("active")) {
+            setMenuOpen(false);
+            menuToggle.focus();
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (
+            navigation.classList.contains("active") &&
+            event.target instanceof Node &&
+            !navigation.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            setMenuOpen(false);
+        }
+    });
+
+    window.matchMedia("(min-width: 961px)").addEventListener("change", function (event) {
+        if (event.matches) {
+            setMenuOpen(false);
+        }
     });
 }
 
@@ -45,13 +69,36 @@ document.querySelectorAll(".currentYear").forEach(function (element) {
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
+    contactForm.querySelectorAll("[required]").forEach(function (input) {
+        input.addEventListener("input", function () {
+            input.setCustomValidity("");
+        });
+    });
+
     contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const formData = new FormData(contactForm);
         const name = String(formData.get("name")).trim();
-        const contact = String(formData.get("email")).trim();
+        const contact = String(formData.get("contact")).trim();
         const message = String(formData.get("message")).trim();
+
+        const fields = [
+            { id: "name", value: name },
+            { id: "contact", value: contact },
+            { id: "message", value: message }
+        ];
+        const emptyField = fields.find(function (field) {
+            return field.value.length === 0;
+        });
+
+        if (emptyField) {
+            const input = document.getElementById(emptyField.id);
+            input.setCustomValidity("Mohon isi bagian ini sebelum mengirim pesan.");
+            input.reportValidity();
+            return;
+        }
+
         const text = [
             "Halo Sinergi Business Solution, saya ingin berdiskusi.",
             "",

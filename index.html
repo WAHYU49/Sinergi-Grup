@@ -24,7 +24,7 @@
             <span></span><span></span><span></span>
         </button>
         <nav class="navigation" id="navigation" aria-label="Navigasi utama">
-            <a href="index.html" class="active">Beranda</a>
+            <a href="index.html" class="active" aria-current="page">Beranda</a>
             <a href="about.html">Tentang</a>
             <a href="services.html">Layanan</a>
             <a href="programs.html">Program</a>
@@ -76,17 +76,22 @@
                 <p class="eyebrow">Our Clients</p>
                 <h2 id="clients-title">Dipercaya oleh berbagai organisasi.</h2>
             </div>
-            <div class="client-carousel" role="region" aria-label="Logo klien Sinergi" aria-roledescription="carousel">
+            <div class="client-carousel" role="region" aria-label="Foto dokumentasi kegiatan bersama klien" aria-roledescription="carousel">
                 <div class="client-track">
+                    <ul class="client-list">
+                        <li><img class="client-logo" src="images/IH-1.jpg" alt="Narasumber memberikan materi sosialisasi pajak bagi UMKM"></li>
+                        <li><img class="client-logo" src="images/IH-2.jpg" alt="Peserta mengikuti seminar sosialisasi pajak bagi UMKM"></li>
+                        <li><img class="client-logo" src="images/IHB-1.jpg" alt="Peserta mengikuti kegiatan bisnis dan kewirausahaan"></li>
+                        <li><img class="client-logo" src="images/IH-B-PLN.jpg" alt="Foto bersama peserta kegiatan bersama PLN"></li>
+                    </ul>
                     <ul class="client-list" aria-hidden="true">
                         <li><img class="client-logo" src="images/IH-1.jpg" alt=""></li>
                         <li><img class="client-logo" src="images/IH-2.jpg" alt=""></li>
                         <li><img class="client-logo" src="images/IHB-1.jpg" alt=""></li>
-                        <li><img class="client-logo" src="images/IHB-1.jpg" alt=""></li>
                         <li><img class="client-logo" src="images/IH-B-PLN.jpg" alt=""></li>
                     </ul>
                 </div>
-                
+                <button class="client-carousel-toggle" type="button" aria-pressed="false">Jeda carousel</button>
             </div>
         </div>
     </section>
